@@ -16,7 +16,20 @@ def get_random_video_from_playlist(api_key, playlist_id):
     response = request.execute()
     items = response.get('items', [])
     if not items: return None
-    random_video = random.choice(items)
+    filtered_items = []
+    for item in items:
+        video_title = item['snippet']['title']
+        video_id = item['snippet']['resourceId']['videoId']
+        video_url = f"https://www.youtube.com/watch?v={video_id}"
+        video_request = youtube.videos().list(
+            part='status'
+            id=video_id
+        )
+        video_response = video_request.execute()
+        video_status = video_response['items'][0]['status']['privacyStatus']
+        if video_status == 'private': continue
+        filtered_items.append(items)
+    random_video = random.choice(filtered_items)
     video_title = random_video['snippet']['title']
     video_id = random_video['snippet']['resourceId']['videoId']
     video_url = f"https://www.youtube.com/watch?v={video_id}"
