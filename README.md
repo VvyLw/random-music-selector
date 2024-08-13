@@ -2,6 +2,7 @@
 
 ## 概要
 あなたに私の好きな音楽をプレゼント
+[Let's Try!](https://random-music-selector.onrender.com)
 
 ## Music Source
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?logo=YouTube&logoColor=white)](#)
