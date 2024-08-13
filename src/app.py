@@ -8,7 +8,7 @@ import sqlite3
 
 app = Flask(__name__)
 deadline = 3 * 24 * 60 * 60     # 3 days
-dbname = 'db/cache.db'
+dbname = 'cache.db'
 
 def init_db():
     conn = sqlite3.connect(dbname)

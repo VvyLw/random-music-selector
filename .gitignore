@@ -1,4 +1,4 @@
 *.env
 server.txt
-db/
+*.db
 __pycache__/
