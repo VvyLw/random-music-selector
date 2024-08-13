@@ -7,18 +7,17 @@
     <title>Random Music Selector</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Random Music Selector</h1>
-        {% if error %}
-            <p>{{ error }}</p>
-        {% else %}
-            <h2>{{ video_title }}</h2>
+    <h1>Random Music Selector</h1>
+    {% if error %}
+        <p>{{ error }}</p>
+    {% else %}
+        <h2>{{ video_title }}</h2>
+        <div class="container">
             <div class="video-container">
                 <iframe src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-            <a href="https://www.youtube.com/watch?v={{ video_id }}" target="_blank">Watch on YouTube</a>
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
     <form action="/" method="get">
         <button type="submit">Reload</button>
     </form>
