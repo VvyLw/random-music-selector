@@ -5,6 +5,8 @@
 [Let's Try!](https://random-music-selector.onrender.com)
 
 ## Music Source
+以下の再生リストの直近50曲からランダムで選曲
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?logo=YouTube&logoColor=white)](#)
 * [Music I](https://youtube.com/playlist?list=PLNnw2DXHmqD80GWMOKoJu4tL3BEHb18aX)
 * [Music II](https://youtube.com/playlist?list=PLNnw2DXHmqD9p9jbbfpLXgA24ONtrWKst)
+* [Vocaloid](https://www.youtube.com/playlist?list=PLNnw2DXHmqD8ea-gGyC0uZdGufJrlbhHy)

@@ -13,8 +13,14 @@
             <p>{{ error }}</p>
         {% else %}
             <h2>{{ video_title }}</h2>
-            <a href="{{ video_url }}" target="_blank">Watch on YouTube</a>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <a href="https://www.youtube.com/watch?v={{ video_id }}" target="_blank">Watch on YouTube</a>
         {% endif %}
     </div>
+    <form action="/" method="get">
+        <button type="submit">Reload</button>
+    </form>
 </body>
 </html>
