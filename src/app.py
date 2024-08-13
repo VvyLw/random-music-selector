@@ -4,21 +4,34 @@ from googleapiclient import discovery
 import os
 from dotenv import load_dotenv
 import time
+import sqlite3
 
 app = Flask(__name__)
-cache = {}
-deadline = 3 * 24 * 60 * 60
+deadline = 3 * 24 * 60 * 60     # 3 days
+dbname = 'db/cache.db'
+
+def init_db():
+    conn = sqlite3.connect(dbname)
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS cache
+                (playlist_id TEXT PRIMARY KEY, videos TEXT, timestamp REAL)''')
+    conn.commit()
+    conn.close()
 
 def get_cached_videos(api_key, playlist_id):
     now = time.time()
-    if playlist_id in cache:
-        cache_entry = cache[playlist_id]
-        if now - cache_entry['timestamp'] < deadline: return cache_entry['videos']
+    conn = sqlite3.connect(dbname)
+    c = conn.cursor()
+    c.execute('SELECT videos, timestamp FROM cache WHERE playlist_id = ?', (playlist_id,))
+    row = c.fetchone()
+    if row and now - row[1] < deadline:
+        conn.close()
+        return eval(row[0])
     videos = get_videos_from_playlist(api_key, playlist_id)
-    cache[playlist_id] = {
-        'videos': videos,
-        'timestamp': now
-    }
+    c.execute('INSERT INTO cache (playlist_id, videos, timestamp) VALUES (?, ?, ?)',
+              (playlist_id, str(videos), now,))
+    conn.commit()
+    conn.close()
     return videos
 
 def get_videos_from_playlist(api_key, playlist_id):
@@ -60,6 +73,7 @@ def get_random_video(api_key, playlist_ids):
     return random.choice(videos)
 
 @app.route('/')
+
 def index():
     load_dotenv()
     api_key = os.getenv("YOUTUBE_API_KEY")
@@ -74,4 +88,7 @@ def index():
         return render_template('index.html', video_title=video_title, video_id=video_id)
     else: return render_template('index.html', error="No video found in the provided playlists.")
 
-if __name__ == "__main__": app.run(debug=False)
+init_db()
+
+if __name__ == "__main__":
+    app.run(debug=False)
