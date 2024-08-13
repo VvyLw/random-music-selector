@@ -10,7 +10,7 @@ def get_random_video_from_playlist(api_key, playlist_id):
     youtube = googleapiclient.discovery.build("youtube", "v3", developerKey=api_key)
     request = youtube.playlistItems().list(
         part="snippet",
-        maxResults=50,
+        maxResults=999,
         playlistId=playlist_id
     )
     response = request.execute()
