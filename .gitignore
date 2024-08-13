@@ -1,3 +1,4 @@
 *.env
 server.txt
+db/
 __pycache__/

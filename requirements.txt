@@ -1,4 +1,5 @@
 google-api-python-client
 Flask
 python-dotenv
+pysqlite3
 gunicorn
